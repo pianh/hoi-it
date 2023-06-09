@@ -1,18 +1,15 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { publicRoutes } from './routes';
-
+import './App.scss';
+import Header from './components/Header';
+import TableUsers from './components/TableUsers';
+import Container from 'react-bootstrap/Container';
 function App() {
     return (
-        <Router>
-            <div className="App">
-                <Routes>
-                    {publicRoutes.map((route, index) => {
-                        const Page = route.component;
-                        return <Route key={index} path={route.path} element={<Page />} />;
-                    })}
-                </Routes>
-            </div>
-        </Router>
+        <div className="app-container">
+            <Header />
+            <Container>
+                <TableUsers />
+            </Container>
+        </div>
     );
 }
 

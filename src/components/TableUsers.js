@@ -1,25 +1,35 @@
 import { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import { fetchAllUser } from './../services/UserService';
-
+import ReactPaginate from 'react-paginate';
 const TableUsers = (props) => {
     const [listUsers, setListUser] = useState([]);
-
+    const [totalUsers, setTotalUsers] = useState(0);
+    const [totalPages, setTotalPages] = useState(0);
     useEffect(() => {
         //Call apis
-        getUsers();
+        getUsers(1); //Mặc định truyền phần tử trang 1
     }, []);
 
-    const getUsers = async () => {
-        let res = await fetchAllUser();
-        console.log('>>> check new res: ', res);
+    const getUsers = async (page) => {
+        let res = await fetchAllUser(page);
+        // console.log('>>> check new res: ', res);
         // check data
-        if (res && res.data && res.data) {
+        if (res && res.data) {
+            // console.log(res);
+            setTotalUsers(res.total);
+            setTotalPages(res.total_pages);
             setListUser(res.data);
         }
         // console.log('>>> check res: ', res);
     };
-    console.log(listUsers);
+
+    const handlePageClick = (event) => {
+        // console.log('event lib: ', event);
+        getUsers(+event.selected + 1);
+    };
+
+    // console.log(listUsers);
     return (
         <>
             <Table striped bordered hover>
@@ -48,6 +58,24 @@ const TableUsers = (props) => {
                         })}
                 </tbody>
             </Table>
+            <ReactPaginate
+                breakLabel="..."
+                nextLabel="next >"
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={5}
+                pageCount={totalPages}
+                previousLabel="< previous"
+                pageClassName="page-item"
+                pageLinkClassName="page-link"
+                previousClassName="page-item"
+                previousLinkClassName="page-link"
+                nextClassName="page-item"
+                nextLinkClassName="page-link"
+                breakClassName="page-item"
+                breakLinkClassName="page-link"
+                containerClassName="pagination"
+                activeClassName="active"
+            />
         </>
     );
 };

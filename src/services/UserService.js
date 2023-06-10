@@ -1,8 +1,8 @@
 // import axios from file;
 import axios from './customize-axios';
 
-const fetchAllUser = () => {
+const fetchAllUser = (page) => {
     //Ham promise
-    return axios.get('/api/users?page=1');
+    return axios.get(`/api/users?page=${page}`);
 };
 export { fetchAllUser };

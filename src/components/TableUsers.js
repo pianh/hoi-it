@@ -4,6 +4,7 @@ import { fetchAllUser } from './../services/UserService';
 import ReactPaginate from 'react-paginate';
 import ModalAddNew from './ModalAddNew';
 import ModalEditUser from './ModalEditUser';
+import ModalConfirm from './ModalConfirm';
 import _ from 'lodash';
 const TableUsers = (props) => {
     const [listUsers, setListUsers] = useState([]);
@@ -20,6 +21,7 @@ const TableUsers = (props) => {
         //Dùng ar function khắc phục render nhiều lần
         setIsShowModalAddNew(false);
         setIsShowModalEdit(false);
+        setIsShowModalDelete(false);
     };
     const handleUpdateTable = (user) => {
         setListUsers([user, ...listUsers]);
@@ -57,6 +59,10 @@ const TableUsers = (props) => {
     const handleEditUser = (user) => {
         setDataUserEdit(user);
         setIsShowModalEdit(true);
+    };
+    const handleDeleteUser = (user) => {
+        setIsShowModalEdit(true);
+        console.log(user);
     };
     // console.log(listUsers);
     return (
@@ -99,7 +105,11 @@ const TableUsers = (props) => {
                                         >
                                             Edit
                                         </button>
-                                        <button type="button" className="btn btn-danger">
+                                        <button
+                                            onClick={() => handleDeleteUser(item)}
+                                            type="button"
+                                            className="btn btn-danger"
+                                        >
                                             Delete
                                         </button>
                                     </td>
@@ -133,6 +143,7 @@ const TableUsers = (props) => {
                 handleClose={handleClose}
                 handleEditUserFromModal={handleEditUserFromModal}
             />
+            <ModalConfirm show={isShowModalDelete} handleClose={handleClose} />
         </>
     );
 };

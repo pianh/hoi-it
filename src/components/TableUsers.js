@@ -12,10 +12,10 @@ const TableUsers = (props) => {
 
     const getUsers = async () => {
         let res = await fetchAllUser();
-
+        console.log('>>> check new res: ', res);
         // check data
-        if (res && res.data && res.data.data) {
-            setListUser(res.data.data);
+        if (res && res.data && res.data) {
+            setListUser(res.data);
         }
         // console.log('>>> check res: ', res);
     };

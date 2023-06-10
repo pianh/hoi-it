@@ -3,6 +3,7 @@ import Table from 'react-bootstrap/Table';
 import { fetchAllUser } from './../services/UserService';
 import ReactPaginate from 'react-paginate';
 import ModalAddNew from './ModalAddNew';
+import ModalEditUser from './ModalEditUser';
 
 const TableUsers = (props) => {
     const [listUsers, setListUsers] = useState([]);
@@ -10,10 +11,15 @@ const TableUsers = (props) => {
     const [totalPages, setTotalPages] = useState(0);
 
     const [isShowModalAddNew, setIsShowModalAddNew] = useState(false);
+    const [isShowModalEdit, setIsShowModalEdit] = useState(false);
+    const [dataUserEdit, setDataUserEdit] = useState({}); //Fill
+
+    const [isShowModalDelete, setIsShowModalDelete] = useState(false);
 
     const handleClose = () => {
         //Dùng ar function khắc phục render nhiều lần
         setIsShowModalAddNew(false);
+        setIsShowModalEdit(false);
     };
     const handleUpdateTable = (user) => {
         setListUsers([user, ...listUsers]);
@@ -41,7 +47,10 @@ const TableUsers = (props) => {
         // console.log('event lib: ', event);
         getUsers(+event.selected + 1);
     };
-
+    const handleEditUser = (user) => {
+        setDataUserEdit(user);
+        setIsShowModalEdit(true);
+    };
     // console.log(listUsers);
     return (
         <>
@@ -76,7 +85,11 @@ const TableUsers = (props) => {
                                     <td>{item.first_name}</td>
                                     <td>{item.last_name}</td>
                                     <td>
-                                        <button type="button" className="btn btn-warning mr-2">
+                                        <button
+                                            type="button"
+                                            className="btn btn-warning mx-3"
+                                            onClick={() => handleEditUser(item)}
+                                        >
                                             Edit
                                         </button>
                                         <button type="button" className="btn btn-danger">
@@ -107,6 +120,7 @@ const TableUsers = (props) => {
                 activeClassName="active"
             />
             <ModalAddNew show={isShowModalAddNew} handleClose={handleClose} handleUpdateTable={handleUpdateTable} />
+            <ModalEditUser show={isShowModalEdit} dataUserEdit={dataUserEdit} handleClose={handleClose} />
         </>
     );
 };

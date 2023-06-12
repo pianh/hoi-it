@@ -22,6 +22,8 @@ const TableUsers = (props) => {
     const [sortBy, setSortBy] = useState('asc');
     const [sortField, setSortField] = useState('id');
 
+    const [keyword, setKeyword] = useState('');
+
     const handleClose = () => {
         //Dùng ar function khắc phục render nhiều lần
         setIsShowModalAddNew(false);
@@ -87,7 +89,19 @@ const TableUsers = (props) => {
         // console.log(cloneListUsers);
         setListUsers(cloneListUsers);
     };
-    console.log('>>> check sort: ', sortBy, sortField);
+    // console.log('>>> check sort: ', sortBy, sortField);
+    const handleSearch = debounce((event) => {
+        // console.log(event.target.value);
+        let term = event.target.value;
+        if (term) {
+            let cloneListUsers = _.cloneDeep(listUsers);
+            cloneListUsers = cloneListUsers.filter((item) => item.email.includes(term)); //email bao gồm phần tử mà chúng ta search
+            // console.log(cloneListUsers);
+            setListUsers(cloneListUsers);
+        } else {
+            getUsers(1);
+        }
+    });
     return (
         <>
             <div className="my-3 add-new">
@@ -97,6 +111,14 @@ const TableUsers = (props) => {
                 <button type="button" className="btn btn-success" onClick={() => setIsShowModalAddNew(true)}>
                     Add new User
                 </button>
+            </div>
+            <div className="col-4 my-3">
+                <input
+                    className="form-control"
+                    placeholder="Search user by email..."
+                    // value={keyword}
+                    onChange={(event) => handleSearch(event)}
+                />
             </div>
             <Table striped bordered hover>
                 {/* avatar : "https://reqres.in/img/faces/7-image.jpg" email : "michael.lawson@reqres.in" first_name :

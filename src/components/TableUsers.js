@@ -6,6 +6,7 @@ import ModalAddNew from './ModalAddNew';
 import ModalEditUser from './ModalEditUser';
 import ModalConfirm from './ModalConfirm';
 import _ from 'lodash';
+import { debounce } from 'lodash';
 import './TableUser.scss';
 const TableUsers = (props) => {
     const [listUsers, setListUsers] = useState([]);
@@ -91,8 +92,8 @@ const TableUsers = (props) => {
     };
     // console.log('>>> check sort: ', sortBy, sortField);
     const handleSearch = debounce((event) => {
-        // console.log(event.target.value);
         let term = event.target.value;
+        console.log('>>> run search term...', term);
         if (term) {
             let cloneListUsers = _.cloneDeep(listUsers);
             cloneListUsers = cloneListUsers.filter((item) => item.email.includes(term)); //email bao gồm phần tử mà chúng ta search
@@ -101,7 +102,7 @@ const TableUsers = (props) => {
         } else {
             getUsers(1);
         }
-    });
+    }, 300);
     return (
         <>
             <div className="my-3 add-new">

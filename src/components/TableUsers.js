@@ -16,7 +16,7 @@ const TableUsers = (props) => {
     const [dataUserEdit, setDataUserEdit] = useState({}); //Fill
 
     const [isShowModalDelete, setIsShowModalDelete] = useState(false);
-
+    const [dataUserDelete, setDataUserDelete] = useState({});
     const handleClose = () => {
         //Dùng ar function khắc phục render nhiều lần
         setIsShowModalAddNew(false);
@@ -61,7 +61,8 @@ const TableUsers = (props) => {
         setIsShowModalEdit(true);
     };
     const handleDeleteUser = (user) => {
-        setIsShowModalEdit(true);
+        setIsShowModalDelete(true);
+        setDataUserDelete(user);
         console.log(user);
     };
     // console.log(listUsers);
@@ -143,7 +144,7 @@ const TableUsers = (props) => {
                 handleClose={handleClose}
                 handleEditUserFromModal={handleEditUserFromModal}
             />
-            <ModalConfirm show={isShowModalDelete} handleClose={handleClose} />
+            <ModalConfirm show={isShowModalDelete} handleClose={handleClose} dataUserDelete={dataUserDelete} />
         </>
     );
 };

@@ -2,7 +2,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 const ModalConfirm = (props) => {
-    const { show, handleClose } = props;
+    const { show, handleClose, dataUserDelete } = props;
     const confirmDelete = () => {};
     return (
         <>
@@ -12,9 +12,9 @@ const ModalConfirm = (props) => {
                 </Modal.Header>
                 <Modal.Body>
                     <div className="body-add-new">
-                        <h3>This action can't be undone!</h3>
-                        <br />
-                        <h4>Do want to delete this user ? email ="abcxyz"</h4>
+                        <h5>This action can't be undone!</h5>
+                        Do want to delete this user ? <br />
+                        email ={dataUserDelete.email}
                     </div>
                 </Modal.Body>
                 <Modal.Footer>

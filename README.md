@@ -1,5 +1,7 @@
 # Getting Started with Create React App
 
+npm install --save-exact @fortawesome/fontawesome-free@6.1.1
+https://stackoverflow.com/questions/23116591/how-to-include-a-font-awesome-icon-in-reacts-render
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

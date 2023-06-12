@@ -28,10 +28,16 @@ const TableUsers = (props) => {
     };
     //Thực tế nếu gọi API thành công thì gọi lại api lấy ds của người dùng
     const handleEditUserFromModal = (user) => {
-        let cloneListUser = _.cloneDeep(listUsers);
+        let cloneListUsers = _.cloneDeep(listUsers);
         let index = listUsers.findIndex((item) => item.id === user.id);
-        cloneListUser[index].first_name = user.first_name;
-        setListUsers(cloneListUser);
+        cloneListUsers[index].first_name = user.first_name;
+        setListUsers(cloneListUsers);
+    };
+    //Thực tế nếu gọi API thành công thì gọi lại api lấy ds của người dùng
+    const handleDeleteUserFromModal = (user) => {
+        let cloneListUsers = _.cloneDeep(listUsers);
+        cloneListUsers = cloneListUsers.filter((item) => item.id !== user.id);
+        setListUsers(cloneListUsers);
     };
 
     useEffect(() => {
@@ -144,7 +150,12 @@ const TableUsers = (props) => {
                 handleClose={handleClose}
                 handleEditUserFromModal={handleEditUserFromModal}
             />
-            <ModalConfirm show={isShowModalDelete} handleClose={handleClose} dataUserDelete={dataUserDelete} />
+            <ModalConfirm
+                show={isShowModalDelete}
+                handleClose={handleClose}
+                dataUserDelete={dataUserDelete}
+                handleDeleteUserFromModal={handleDeleteUserFromModal}
+            />
         </>
     );
 };

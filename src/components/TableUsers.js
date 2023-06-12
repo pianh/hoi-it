@@ -25,6 +25,7 @@ const TableUsers = (props) => {
     const [sortField, setSortField] = useState('id');
 
     const [keyword, setKeyword] = useState('');
+    const [dataExport, setDataExport] = useState([]);
 
     const handleClose = () => {
         //Dùng ar function khắc phục render nhiều lần
@@ -110,6 +111,7 @@ const TableUsers = (props) => {
         ['Raed', 'Labes', 'rl@smthing.co.com'],
         ['Yezzi', 'Min l3b', 'ymin@cocococo.com'],
     ];
+    const getUsersExport = () => {};
     return (
         <>
             <div className="my-3 add-new">
@@ -122,7 +124,13 @@ const TableUsers = (props) => {
                     </label>
                     <input id="test" type="file" hidden />
 
-                    <CSVLink data={csvData} filename={'my-file.csv'} className="btn btn-primary" target="_blank">
+                    <CSVLink
+                        data={dataExport}
+                        filename={'my-file.csv'}
+                        className="btn btn-primary"
+                        asyncOnClick={true}
+                        onClick={this.getUsersExport}
+                    >
                         <i className="fa-solid fa-file-arrow-down"></i> Export
                     </CSVLink>
 

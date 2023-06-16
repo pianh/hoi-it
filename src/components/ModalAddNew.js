@@ -10,7 +10,7 @@ const ModalAddNew = (props) => {
     const handleSaveUser = async () => {
         let res = await postCreateUser(name, job);
 
-        console.log('>>> check res:', res);
+        // console.log('>>> check res:', res);
         if (res && res.id) {
             // Success
             handleClose();

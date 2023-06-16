@@ -18,7 +18,7 @@ const UserProvider = ({ children }) => {
 
     const logout = () => {
         localStorage.removeItem('token');
-        localStorage.setItem('email');
+        localStorage.setItem('email', ''); // Set the value for the 'email' key as an empty string
         setUser((user) => ({
             email: '',
             auth: false,
